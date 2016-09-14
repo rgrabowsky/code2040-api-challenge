@@ -1,0 +1,53 @@
+<!-- Open this file in a browser to complete Step 4 of the API Challenge -->
+
+<script>
+
+var dict = {};
+dict.token = "d8ea92bde49ac90823484a2a8aa2a149";
+
+var xhr1 = new XMLHttpRequest();
+var url1 = "http://challenge.code2040.org/api/prefix";
+xhr1.open('POST', url1);
+xhr1.setRequestHeader('Content-Type', 'application/json');
+
+xhr1.onreadystatechange = function() {
+	// First response received 
+	if (xhr1.readyState === 4 && xhr1.status === 200) {
+
+		// Parse dictionary returned by server, containing prefix string and string array
+		var retDict = JSON.parse(xhr1.responseText);
+		var result = [];
+
+		for (var i = 0; i < retDict.array.length; i++) {
+			// If string at index i does not begin with prefix returned from server, add it to result array
+			var currStr = retDict.array[i];
+			if (!currStr.startsWith(retDict.prefix)) {
+				// Line below used for testing
+				// alert("Prefix: " + retDict.prefix + ". String being added: " + currStr + ".");
+				result.push(currStr);
+			}
+		}
+		dict.array = result;
+
+		var xhr2 = new XMLHttpRequest();
+		var url2 = "http://challenge.code2040.org/api/prefix/validate";
+		xhr2.open('POST', url2);
+		xhr2.setRequestHeader('Content-Type', 'application/json');
+
+		xhr2.onreadystatechange = function() {
+			if (xhr2.readyState === 4 && xhr2.status === 200) {
+				alert(xhr2.responseText);
+			}
+			return;
+		}
+
+		// Send second request passing in result array with strings that don't begin with input prefix
+		xhr2.send(JSON.stringify(dict));
+	}
+	return;
+}
+
+// Send first request passing in my token value in a dictionary
+xhr1.send(JSON.stringify(dict));
+
+</script>
