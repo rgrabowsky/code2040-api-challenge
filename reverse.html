@@ -1,0 +1,45 @@
+<!-- Open this file in a browser to complete Step 2 of the API Challenge -->
+
+<script>
+
+// This function takes in a string and returns the reversed string
+function reverse(s) {
+  return s.split('').reverse().join('');
+}
+
+var dict = {};
+dict.token = "d8ea92bde49ac90823484a2a8aa2a149";
+
+// Set up the first request to be sent, that simply contains a dictionary with my token string
+var xhr1 = new XMLHttpRequest();
+var url1 = "http://challenge.code2040.org/api/reverse";
+xhr1.open('POST', url1);
+xhr1.setRequestHeader('Content-Type', 'application/json');
+
+xhr1.onreadystatechange = function () {
+    if (xhr1.readyState == 4 && xhr1.status == 200) {
+        // First response contains string to reverse
+        var str = xhr1.responseText;
+        dict.string = reverse(str);
+
+        // Since XMLHttpRequests are asynchronous, create second request from inside this function
+        var xhr2 = new XMLHttpRequest();
+        var url2 = "http://challenge.code2040.org/api/reverse/validate";
+        xhr2.open('POST', url2);
+        xhr2.setRequestHeader('Content-Type', 'application/json');
+
+        xhr2.onreadystatechange = function() {
+        	if (xhr2.readyState == 4 && xhr2.status == 200) {
+        		alert(xhr2.responseText);
+        	}
+        	return;
+        }
+        
+        xhr2.send(JSON.stringify(dict));
+    }
+    return;
+}
+
+xhr1.send(JSON.stringify(dict));
+
+</script>
