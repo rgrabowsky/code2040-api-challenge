@@ -1,0 +1,50 @@
+<!-- Open this file in a browser to complete Step 3 of API Challenge -->
+
+<script>
+
+var dict = {};
+dict.token = "d8ea92bde49ac90823484a2a8aa2a149";
+
+var collectionReq = new XMLHttpRequest();
+var haystack_url = "http://challenge.code2040.org/api/haystack";
+collectionReq.open('POST', haystack_url);
+collectionReq.setRequestHeader('Content-Type', 'application/json');
+
+collectionReq.onreadystatechange = function() {
+	// First response received 
+	if (collectionReq.readyState === 4 && collectionReq.status === 200) {
+
+		// Parse dictionary returned by server, containing needle string and haystack array
+		var retDict = JSON.parse(collectionReq.responseText);
+
+		// Find index of "needle" string
+		dict.needle = -1; // -1 means needle was not found in the haystack
+		for (var i = 0; i < retDict.haystack.length; i++) {
+			if (retDict.needle === retDict.haystack[i]) {
+				dict.needle = i;
+				break;
+			}
+		}
+
+		var validateReq = new XMLHttpRequest();
+		var validate_url = "http://challenge.code2040.org/api/haystack/validate";
+		validateReq.open('POST', validate_url);
+		validateReq.setRequestHeader('Content-Type', 'application/json');
+
+		validateReq.onreadystatechange = function() {
+			if (validateReq.readyState === 4 && validateReq.status === 200) {
+				alert(validateReq.responseText);
+			}
+			return;
+		}
+
+		// Send second request passing in index of needle string in the haystack array, or -1 if the needle string wasn't found
+		validateReq.send(JSON.stringify(dict));
+	}
+	return;
+}
+
+// Send first request passing in my token value in a dictionary
+collectionReq.send(JSON.stringify(dict));
+
+</script>
