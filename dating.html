@@ -1,0 +1,51 @@
+<!-- Open this file in a browser to complete Step 5 of the API Challenge -->
+
+<script>
+
+var dict = {};
+dict.token = "d8ea92bde49ac90823484a2a8aa2a149";
+
+var xhr1 = new XMLHttpRequest();
+var url1 = "http://challenge.code2040.org/api/dating";
+xhr1.open('POST', url1);
+xhr1.setRequestHeader('Content-Type', 'application/json');
+
+xhr1.onreadystatechange = function() {
+	// First response received 
+	if (xhr1.readyState === 4 && xhr1.status === 200) {
+
+		// Parse dictionary returned by server, containing datestamp string and interval integer (units: seconds)
+		var retDict = JSON.parse(xhr1.responseText);
+
+		// Find the desired output date by adding the interval in milliseconds (seconds times 1000) to the input date
+		// (converted to milliseconds from a datestamp string using the parse() method)
+		var resultDate = new Date(Date.parse(retDict.datestamp) + retDict.interval * 1000);
+		var dateString = resultDate.toISOString();
+
+		// Reformat the datestamp manually using string methods, since toISOString() outputs it with milliseconds in the end,
+		// while the API uses the ISO format without milliseconds (up to seconds only).
+		dict.datestamp = dateString.substring(0, dict.datestamp.length - 5) + "Z"; 
+
+		var xhr2 = new XMLHttpRequest();
+		var url2 = "http://challenge.code2040.org/api/dating/validate";
+		xhr2.open('POST', url2);
+		xhr2.setRequestHeader('Content-Type', 'application/json');
+
+		xhr2.onreadystatechange = function() {
+			if (xhr2.readyState === 4 && xhr2.status === 200) {
+				alert(xhr2.responseText);
+			}
+			return;
+		}
+
+		// Send second request passing in the calculated date as an ISO string (key: datestamp) and my token value
+		alert(dict.token + " " + retDict.datestamp + " " + secs	+ " " + dict.datestamp);
+		xhr2.send(JSON.stringify(dict));
+	}
+	return;
+}
+
+// Send first request passing in my token value in a dictionary
+xhr1.send(JSON.stringify(dict));
+
+</script>
