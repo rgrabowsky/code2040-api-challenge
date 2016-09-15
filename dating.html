@@ -1,6 +1,13 @@
 <!-- Open this file in a browser to complete Step 5 of the API Challenge -->
-
 <script>
+// ====================================================================================================================
+// Sending a POST request to http://challenge.code2040.org/api/dating causes the API to respond with a JSON dictionary, 
+// containing a datestamp (date as a string) and a time interval in seconds. The datestamp is formatted as an ISO 8601. 
+// What this file accomplishes is finding the datestamp (also formatted as ISO 8601) for the date and time resulting
+// from adding that input time interval to the input date. It submits that result by sending a POST request to 
+// http://challenge.code2040.org/api/dating/validate, whose body contains a JSON dictionary with my token and the
+// desired datestamp.
+// ====================================================================================================================
 
 var dict = {};
 dict.token = "d8ea92bde49ac90823484a2a8aa2a149";
