@@ -1,7 +1,12 @@
 <!-- Open this file in a browser to complete Step 4 of the API Challenge -->
-<!-- Given an input prefix and a string array, output a new string array containing all strings in the input 
-not beginning with the given prefix. -->
 <script>
+// =================================================================================================================
+// A POST request is sent to http://challenge.code2040.org/api/prefix and the server responds with a dictionary,
+// containing two keys and two values. The first value, prefix, is a string. The second value, array, is an array
+// of strings. A result array is then created and all strings in the input array not beginning with the input prefix
+// are added to that result array. Then the array is sent back to http://challenge.code2040.org/api/prefix/validate
+// through another POST request.
+// =================================================================================================================
 
 var dict = {};
 dict.token = "d8ea92bde49ac90823484a2a8aa2a149";
