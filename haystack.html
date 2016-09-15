@@ -1,6 +1,13 @@
 <!-- Open this file in a browser to complete Step 3 of API Challenge -->
 
 <script>
+// ============================================================================================================== 
+// This script POSTs token value to http://challenge.code2040.org/api/haystack causing a dictionary to be sent 
+// back containing two values and keys. The first value, needle, is a string. The second value, haystack, is an 
+// array of strings. The script then tells the API where the needle is in the array, by sending back the position,
+// or “index,” of the needle string. The API expects indexes to start counting at 0. The index (and token again)
+// is send to http://challenge.code2040.org/api/haystack/validate.
+// ============================================================================================================== 
 
 var dict = {};
 dict.token = "d8ea92bde49ac90823484a2a8aa2a149";
