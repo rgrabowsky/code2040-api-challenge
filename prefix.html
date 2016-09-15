@@ -1,5 +1,6 @@
 <!-- Open this file in a browser to complete Step 4 of the API Challenge -->
-
+<!-- Given an input prefix and a string array, output a new string array containing all strings in the input 
+not beginning with the given prefix. -->
 <script>
 
 var dict = {};
@@ -22,8 +23,6 @@ xhr1.onreadystatechange = function() {
 			// If string at index i does not begin with prefix returned from server, add it to result array
 			var currStr = retDict.array[i];
 			if (!currStr.startsWith(retDict.prefix)) {
-				// Line below used for testing
-				// alert("Prefix: " + retDict.prefix + ". String being added: " + currStr + ".");
 				result.push(currStr);
 			}
 		}
